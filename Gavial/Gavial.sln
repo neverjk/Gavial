@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29215.179
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gavial", "Gavial\Gavial.csproj", "{629D37CE-1C2F-43C6-87E0-7E5B2EBE09A5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gavial.UI", "Gavial\Gavial.UI.csproj", "{629D37CE-1C2F-43C6-87E0-7E5B2EBE09A5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
