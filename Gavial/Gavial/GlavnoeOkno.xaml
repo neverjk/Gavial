@@ -13,5 +13,6 @@
                 <DrawingAttributes Color="Coral" Width="10" FitToCurve="True" Height="10" StylusTip="Rectangle"></DrawingAttributes>
             </InkCanvas.DefaultDrawingAttributes>
         </InkCanvas>
+
     </Grid>
 </Metro:MetroWindow>
