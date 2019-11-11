@@ -72,6 +72,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ColorInfo.cs" />
     <Compile Include="GlavnoeOkno.xaml.cs">
       <DependentUpon>GlavnoeOkno.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -6,12 +6,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gavial"
         mc:Ignorable="d"
-        Title="Gavial" Height="450" Width="800">
+        Title="Gavial" WindowState="Maximized">
     <Grid>
-        <InkCanvas Background="LightCyan">
-            <InkCanvas.DefaultDrawingAttributes>
-                <DrawingAttributes Color="Coral" Width="10" FitToCurve="True" Height="10" StylusTip="Rectangle"></DrawingAttributes>
-            </InkCanvas.DefaultDrawingAttributes>
-        </InkCanvas>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2.25*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel>
+            <InkCanvas Name="canvas" Background="LightCyan" Height="{Binding Path=canvas, Source=Width}">
+                <InkCanvas.DefaultDrawingAttributes>
+                    <DrawingAttributes x:Name="ActualBrush" Color="Coral" Width="10" FitToCurve="True" Height="10" StylusTip="Rectangle"></DrawingAttributes>
+                </InkCanvas.DefaultDrawingAttributes>
+            </InkCanvas>
+            <Border BorderBrush="Black" BorderThickness="2" Height="50">
+                <StackPanel Orientation="Horizontal">
+                    <StackPanel>
+                        <TextBlock>Brush size:</TextBlock>
+                        <ComboBox Name="SizeCB"></ComboBox>
+                    </StackPanel>
+                    <ComboBox Name="ColorCB" Margin="10" Width="150" Text="Choose color" IsReadOnly="True" IsEditable="True">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Border Margin="3" Width="10" Height="10" Background="{Binding SampleBrush}"></Border>
+                                    <TextBlock Text="{Binding ColorName}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+            </Border>
+        </StackPanel>
     </Grid>
 </Metro:MetroWindow>
