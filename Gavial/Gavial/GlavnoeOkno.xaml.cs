@@ -22,9 +22,10 @@ namespace Gavial
     /// </summary>
     public partial class GlavnoeOkno : MetroWindow
     {
+        IEnumerable<ColorInfo> colors;
         public GlavnoeOkno()
         {
-            var color_query =
+            colors =
         from PropertyInfo property in typeof(Colors).GetProperties()
         orderby property.Name
                  //orderby ((Color)property.GetValue(null, null)).ToString()
@@ -33,35 +34,38 @@ namespace Gavial
             (Color)property.GetValue(null, null));
 
             InitializeComponent();
-            ColorCB.ItemsSource = color_query;
-
-
-        }
-        public static int Fibonacci(int n)
-        {
-            int a = 0;
-            int b = 1;
-            // In N steps compute Fibonacci sequence iteratively.
-            for (int i = 0; i < n; i++)
+            canvas.Height = canvas.Width;
+            ColorCB.ItemsSource = colors;
+            for(int i=1;i<21;i++)
             {
-                int temp = a;
-                a = b;
-                b = temp + b;
+                SizeCB.Items.Add(i);
             }
-            return a;
+           
         }
 
 
-        private ComboBox FillSize()
+        
+        private void SizeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            ComboBox box;
-            for (int i = 0; i < 15; i++)
-            {
-                Console.WriteLine(Fibonacci(i));
-            }
-            //box.Items.Add();
-    
-            return null;
+            ActualBrush.Height = Convert.ToInt32(SizeCB.SelectedItem);
+            ActualBrush.Width = ActualBrush.Height;
+        }
+
+        private void ColorCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            List<ColorInfo> cls = colors.ToList();
+            ActualBrush.Color = cls[ColorCB.SelectedIndex].Color;
+            ColorCB.Text = cls[ColorCB.SelectedIndex].ColorName;
+        }
+
+        private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            ActualBrush.StylusTip = System.Windows.Ink.StylusTip.Rectangle;
+        }
+
+        private void Rectangle_MouseDown_1(object sender, MouseButtonEventArgs e)
+        {
+            ActualBrush.StylusTip = System.Windows.Ink.StylusTip.Ellipse;
         }
     }
 }

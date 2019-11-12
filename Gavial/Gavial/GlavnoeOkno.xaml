@@ -12,19 +12,23 @@
             <ColumnDefinition Width="2.25*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <StackPanel>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
             <InkCanvas Name="canvas" Background="LightCyan" Height="{Binding Path=canvas, Source=Width}">
                 <InkCanvas.DefaultDrawingAttributes>
                     <DrawingAttributes x:Name="ActualBrush" Color="Coral" Width="10" FitToCurve="True" Height="10" StylusTip="Rectangle"></DrawingAttributes>
                 </InkCanvas.DefaultDrawingAttributes>
             </InkCanvas>
-            <Border BorderBrush="Black" BorderThickness="2" Height="50">
+            <Border Grid.Row="1" BorderBrush="Black" BorderThickness="2" >
                 <StackPanel Orientation="Horizontal">
                     <StackPanel>
                         <TextBlock>Brush size:</TextBlock>
-                        <ComboBox Name="SizeCB"></ComboBox>
+                        <ComboBox SelectionChanged="SizeCB_SelectionChanged" Name="SizeCB"></ComboBox>
                     </StackPanel>
-                    <ComboBox Name="ColorCB" Margin="10" Width="150" Text="Choose color" IsReadOnly="True" IsEditable="True">
+                    <ComboBox Name="ColorCB" Margin="10" Width="150" SelectionChanged="ColorCB_SelectionChanged" Text="Choose color" IsReadOnly="True" IsEditable="True">
                         <ComboBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal">
@@ -34,8 +38,43 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
+                    <Border BorderThickness="2" BorderBrush="Black" Margin="10">
+                        <Rectangle Height="30" Width="20" MouseDown="Rectangle_MouseDown"></Rectangle>
+                    </Border>
+                    <Border BorderThickness="2" BorderBrush="Black" CornerRadius="20" Margin="10">
+                        <Rectangle Height="30" Width="20" MouseDown="Rectangle_MouseDown_1"></Rectangle>
+                    </Border>
                 </StackPanel>
             </Border>
-        </StackPanel>
+        </Grid>
+
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <ListBox Name="ChatLb" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Border Background="SkyBlue" CornerRadius="10">
+                            <StackPanel>
+                                <TextBlock Foreground="White" Text="{Binding User.Name}"></TextBlock>
+                                <TextBlock Foreground="White" Text="{Binding Time}"></TextBlock>
+                                <TextBlock Foreground="White" Text="{Binding Text}"></TextBlock>
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+
+            <Grid Grid.Row="1" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox FontSize="14" Metro:TextBoxHelper.Watermark="Type your message here..." Name="MessageTB" HorizontalAlignment="Stretch"></TextBox>
+                <Button Grid.Column="1" FontSize="16" Background="Black">SEND</Button>
+            </Grid>
+        </Grid>
     </Grid>
 </Metro:MetroWindow>
