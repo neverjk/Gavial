@@ -1,9 +1,12 @@
 ﻿using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,9 +34,10 @@ namespace Gavial
                  //orderby ((Color)property.GetValue(null, null)).ToString()
                  select new ColorInfo(
             property.Name,
-            (Color)property.GetValue(null, null));
+            (System.Windows.Media.Color)property.GetValue(null, null));
 
             InitializeComponent();
+
             canvas.Height = canvas.Width;
             ColorCB.ItemsSource = colors;
             for(int i=1;i<21;i++)
@@ -42,8 +46,6 @@ namespace Gavial
             }
            
         }
-
-
         
         private void SizeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -55,15 +57,20 @@ namespace Gavial
         {
             List<ColorInfo> cls = colors.ToList();
             ActualBrush.Color = cls[ColorCB.SelectedIndex].Color;
-            ColorCB.Text = cls[ColorCB.SelectedIndex].ColorName;
+            //ColorCB.Text = cls[ColorCB.SelectedIndex].ColorName;
         }
 
-        private void Rectangle_MouseDown(object sender, MouseButtonEventArgs e)
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             ActualBrush.StylusTip = System.Windows.Ink.StylusTip.Rectangle;
         }
 
-        private void Rectangle_MouseDown_1(object sender, MouseButtonEventArgs e)
+        private void Button_Click_2(object sender, RoutedEventArgs e)
         {
             ActualBrush.StylusTip = System.Windows.Ink.StylusTip.Ellipse;
         }
