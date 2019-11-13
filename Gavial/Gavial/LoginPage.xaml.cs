@@ -1,5 +1,4 @@
-﻿using MahApps.Metro.Controls;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,15 +16,13 @@ using System.Windows.Shapes;
 namespace Gavial
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for LoginPage.xaml
     /// </summary>
-    public partial class GlavnoeOkno : MetroWindow
+    public partial class LoginPage : Page
     {
-        public GlavnoeOkno()
+        public LoginPage()
         {
             InitializeComponent();
-            this.Content = new LoginPage();
-            
         }
     }
 }
