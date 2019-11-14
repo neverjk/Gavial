@@ -63,7 +63,7 @@
                 <RowDefinition Height="50"/>
             </Grid.RowDefinitions>
             <ScrollViewer>
-                <ListBox Background="Yellow">
+                <ListBox>
                     
                 </ListBox>
             </ScrollViewer>
