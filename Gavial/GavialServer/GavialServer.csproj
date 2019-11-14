@@ -55,7 +55,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\Entities\User.cs" />
-    <Compile Include="Database\GavialDB.cs" />
+    <Compile Include="Database\GavialContext.cs" />
+    <Compile Include="Migrations\201911141658525_Gavial.cs" />
+    <Compile Include="Migrations\201911141658525_Gavial.Designer.cs">
+      <DependentUpon>201911141658525_Gavial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Service\Game.cs" />
     <Compile Include="Service\GavialService.cs" />
     <Compile Include="Service\Contracts\ICallBack.cs" />
@@ -69,6 +74,11 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201911141658525_Gavial.resx">
+      <DependentUpon>201911141658525_Gavial.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

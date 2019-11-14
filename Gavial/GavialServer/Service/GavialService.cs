@@ -1,4 +1,5 @@
 ﻿
+using GavialServer.Entity;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -15,34 +16,13 @@ namespace GavialServer
         public List<User> activeUsers = new List<User>();
         public List<User> allUsers = new List<User>();
         public const int usersCountPerGame= 5;
+        public GavialContext gavialContext = new GavialContext();
 
         public GavialService()
         {
             games = new List<Game>();
         }
-        public void Draw(Bitmap image, string name)
-        {
-            foreach(var i in games)
-            {
-                if (i.users.Find(x => x.Name == name) != null)
-                {
-                    i.drawing = image;
-                    break;
-                }
-            }
-        }
-        public ProfileDto GetProfileInfo(string name)
-        {
-            ProfileDto res = new ProfileDto();
-            foreach(var i in activeUsers)
-            {
-                if (i.Name == name)
-                {
-                    //return new ProfileDto() { BadWords= }
-                }
-            }
-            return res;
-        }
+
         public void JoinGame(string name, int gameId=-1)
         {
             if (gameId == -1)
@@ -76,6 +56,21 @@ namespace GavialServer
                 games[games.Count - 1].clients.Add(allClients[clientId]);
             }
         }
+        public void SendMessage(MessageDto message)
+        {
+            throw new NotImplementedException();
+        }
+        public void Draw(Bitmap image, string name)
+        {
+            foreach (var i in games)
+            {
+                if (i.users.Find(x => x.Name == name) != null)
+                {
+                    i.drawing = image;
+                    break;
+                }
+            }
+        }
         public void LeaveGame(string name)
         {
             foreach(var i in games)
@@ -88,6 +83,7 @@ namespace GavialServer
                 }
             }
         }
+
         public void LogIn(string name)
         {
             
@@ -101,9 +97,18 @@ namespace GavialServer
         {
             
         }
-        public void SendMessage(MessageDto message)
+
+        public ProfileDto GetProfileInfo(string name)
         {
-            throw new NotImplementedException();
+            ProfileDto res = new ProfileDto();
+            foreach (var i in activeUsers)
+            {
+                if (i.Name == name)
+                {
+                    //return new ProfileDto() { BadWords= }
+                }
+            }
+            return res;
         }
         public void SetProfileInfo(ProfileDto newProfileInfo)
         {

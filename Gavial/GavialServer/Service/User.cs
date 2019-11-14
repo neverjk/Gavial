@@ -8,6 +8,7 @@ namespace GavialServer
 {
     public class User
     {
+
         public ICallBack Channel { get; set; }
         public string Name { get; set; }
     }
