@@ -1,8 +1,12 @@
 ﻿using MahApps.Metro.Controls;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,11 +25,54 @@ namespace Gavial
     /// </summary>
     public partial class GlavnoeOkno : MetroWindow
     {
+        IEnumerable<ColorInfo> colors;
         public GlavnoeOkno()
         {
+            colors =
+        from PropertyInfo property in typeof(Colors).GetProperties()
+        orderby property.Name
+                 //orderby ((Color)property.GetValue(null, null)).ToString()
+                 select new ColorInfo(
+            property.Name,
+            (System.Windows.Media.Color)property.GetValue(null, null));
+
             InitializeComponent();
-            this.Content = new LoginPage();
+
+            canvas.Height = canvas.Width;
+            ColorCB.ItemsSource = colors;
+            for(int i=1;i<21;i++)
+            {
+                SizeCB.Items.Add(i);
+            }
+           
+        }
+        
+        private void SizeCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ActualBrush.Height = Convert.ToInt32(SizeCB.SelectedItem);
+            ActualBrush.Width = ActualBrush.Height;
+        }
+
+        private void ColorCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            List<ColorInfo> cls = colors.ToList();
+            ActualBrush.Color = cls[ColorCB.SelectedIndex].Color;
+            //ColorCB.Text = cls[ColorCB.SelectedIndex].ColorName;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
             
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            ActualBrush.StylusTip = System.Windows.Ink.StylusTip.Rectangle;
+        }
+
+        private void Button_Click_2(object sender, RoutedEventArgs e)
+        {
+            ActualBrush.StylusTip = System.Windows.Ink.StylusTip.Ellipse;
         }
     }
 }

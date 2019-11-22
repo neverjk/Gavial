@@ -6,13 +6,91 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Gavial"
         mc:Ignorable="d"
-        Title="Gavial" Height="450" Width="800">
+        Title="Gavial" WindowState="Maximized">
     <Grid>
-        <InkCanvas Background="LightCyan">
-            <InkCanvas.DefaultDrawingAttributes>
-                <DrawingAttributes Color="Coral" Width="10" FitToCurve="True" Height="10" StylusTip="Rectangle"></DrawingAttributes>
-            </InkCanvas.DefaultDrawingAttributes>
-        </InkCanvas>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="2.25*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="https://avatars.mds.yandex.net/get-mpic/1526692/img_id5120227819084026953.jpeg/9hq"></Image>
+                    <TextBlock Margin="10"></TextBlock>
+                </StackPanel>
+                <TextBlock Grid.Column="1" HorizontalAlignment="Right"></TextBlock>
+            </Grid>
+            <InkCanvas Grid.Row="1" Name="canvas" Background="LightCyan" Height="{Binding Path=canvas, Source=Width}">
+                <InkCanvas.DefaultDrawingAttributes>
+                    <DrawingAttributes x:Name="ActualBrush" Color="Coral" Width="10" FitToCurve="True" Height="10" StylusTip="Rectangle"></DrawingAttributes>
+                </InkCanvas.DefaultDrawingAttributes>
+            </InkCanvas>
+            <Border Grid.Row="2" BorderBrush="Black" BorderThickness="2" >
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <!--<StackPanel Margin="5">-->
+                    <TextBlock  VerticalAlignment="Center" Margin="10">Brush size:</TextBlock>
+                    <ComboBox SelectionChanged="SizeCB_SelectionChanged" Margin="10" Name="SizeCB"></ComboBox>
+                    <!--</StackPanel>-->
+                    <ComboBox Name="ColorCB" Margin="10" Width="150" SelectionChanged="ColorCB_SelectionChanged" Text="Choose color" IsReadOnly="True" IsEditable="True">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Border Margin="3" Width="10" Height="10" Background="{Binding SampleBrush}"></Border>
+                                    <TextBlock Text="{Binding ColorName}"></TextBlock>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button Height="25" Width="25" Margin="10" Click="Button_Click_1"></Button>
+                    <Button Height="25" Width="25" Margin="10" Click="Button_Click_2" Style="{DynamicResource MahApps.Metro.Styles.MetroCircleButtonStyle}"></Button>
+                </StackPanel>
+            </Border>
+        </Grid>
 
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="1.4*"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+            <ScrollViewer>
+                <ListBox>
+                    
+                </ListBox>
+            </ScrollViewer>
+            <ScrollViewer Grid.Row="1" Visibility="Visible">
+                <ListBox Name="ChatLb" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="SkyBlue" CornerRadius="10">
+                                <StackPanel>
+                                    <TextBlock Foreground="White" Text="{Binding User.Name}"></TextBlock>
+                                    <TextBlock Foreground="White" Text="{Binding Time}"></TextBlock>
+                                    <TextBlock Foreground="White" Text="{Binding Text}"></TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </ScrollViewer>
+
+            <Grid Grid.Row="2" HorizontalAlignment="Stretch">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBox FontSize="14" Metro:TextBoxHelper.Watermark="Type your message here..." Name="MessageTB" HorizontalAlignment="Stretch"></TextBox>
+                <Button Grid.Column="1" FontSize="16" Background="Black" Click="Button_Click">SEND</Button>
+            </Grid>
+        </Grid>
     </Grid>
 </Metro:MetroWindow>
