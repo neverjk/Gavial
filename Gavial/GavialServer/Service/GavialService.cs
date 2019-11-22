@@ -12,7 +12,7 @@ namespace GavialServer
     public class GavialService : IPlay, IProfile
     {
         public List<Game> games;
-        public List<ICallBack> allClients = new List<ICallBack>();
+        public List<ICallBack> activeClients = new List<ICallBack>();
         public List<User> activeUsers = new List<User>();
         public List<User> allUsers = new List<User>();
         public const int usersCountPerGame= 5;
@@ -33,7 +33,7 @@ namespace GavialServer
                     {
                         int clientId = allUsers.IndexOf(allUsers.Find(x => x.Name == name));
                         i.users.Add(allUsers.Find(x => x.Name == name));
-                        i.clients.Add(allClients[clientId]);
+                        i.clients.Add(activeClients[clientId]);
                         return;
                     }
                 }
@@ -44,7 +44,7 @@ namespace GavialServer
                 {
                     int clientId = allUsers.IndexOf(allUsers.Find(x => x.Name == name));
                     games[gameId].users.Add(allUsers.Find(x => x.Name == name));
-                    games[gameId].clients.Add(allClients[clientId]);
+                    games[gameId].clients.Add(activeClients[clientId]);
                     return;
                 }
             }
@@ -53,7 +53,7 @@ namespace GavialServer
                 games.Add(new Game());
                 int clientId = allUsers.IndexOf(allUsers.Find(x => x.Name == name));
                 games[games.Count-1].users.Add(allUsers.Find(x => x.Name == name));
-                games[games.Count - 1].clients.Add(allClients[clientId]);
+                games[games.Count - 1].clients.Add(activeClients[clientId]);
             }
         }
         public void SendMessage(MessageDto message)
